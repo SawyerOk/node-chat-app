@@ -20,19 +20,17 @@ io.on('connection', (socket)=>{
         console.log('User was disconnected');
     });
 
-    socket.on('createMessage', (newMessage)=>{
-        // let time = new Date();
-        // console.log(`New message from client : ${time.getMinutes()} and => ${newMessage.text}`)
-        console.log('Message => ', newMessage);
+    socket.on('createMessage', (message)=>{
+        console.log('CreateMessage', message);
+        io.emit('newMessage', {
+            from : message.from,
+            text : message.text,
+            createAt : new Date().getTime()
+        })
     });
 
     //Emiting
 
-    socket.emit('newMessage', {
-        message : " hey dy",
-        from : 'miami',
-        createdAt : 12345
-    });
 
    
 });
