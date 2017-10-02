@@ -42,7 +42,7 @@ describe('Users', ()=>{
     });
 
     it('should return names for Lich room', ()=>{
-        var result = users.geUsersList('Lich');
+        var result = users.getUsersList('Lich');
         expect(result).toEqual(['Moogi']);
     });
 
@@ -70,6 +70,12 @@ describe('Users', ()=>{
         var id = '24';
         var result = users.getUser(id);
         expect(result).toNotExist();
+    });
+
+    it('should find user by name', ()=>{
+        var name = "Moogi";
+        var result = users.userExist(name);
+        expect(result).toBeTruthy;
     });
     
 });
