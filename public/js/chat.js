@@ -34,8 +34,14 @@ socket.on('disconnect', function(){
     console.log('Disconnected from serever');
 });
 
-socket.on('updateUserList', function(users) {
+socket.on('updateUserList', function(users, room) {
     var ol = jQuery('<ol></ol>');
+
+    
+    var span = jQuery('<span></span>');
+    span.text(room);
+    jQuery('#room').html(span);
+  
 
     users.forEach(function (user) {
         ol.append(jQuery('<li></li>').text(user));
@@ -45,7 +51,7 @@ socket.on('updateUserList', function(users) {
     
 });
 
-
+//Message from server
 socket.on('newMessage', function(message){
     var template = jQuery('#message-template').html();
     var time = moment(message.createdAt).format('H:MM:ss');
@@ -71,6 +77,8 @@ socket.on('newLocationMessage', function(message) {
     
 } );
 
+
+
 jQuery('#message-form').on('submit', function(e){
     e.preventDefault();
     var messsageTextBox = jQuery('[name=message]');
@@ -80,6 +88,7 @@ jQuery('#message-form').on('submit', function(e){
         messsageTextBox.val('');
     });
 });
+
 
 //Send location
 var locationButton = jQuery('#send-location');
